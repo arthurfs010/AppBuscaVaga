@@ -50,11 +50,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     //Inicia o mapa
     @Override
     public void onMapReady(GoogleMap map) {
+        LatLng atual;
+        atual = new LatLng(latitude, longitude);
         if (lm != null) {
             if (location != null) {
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
             }
+            atual = new LatLng(latitude, longitude);
         }
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -69,15 +72,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         // Add um marcador ao mapa
-        LatLng cascavel = new LatLng(-24.954610, -53.470216);
-        map.addMarker(new MarkerOptions().position(cascavel).title("Cascavel"));
+        //LatLng atual = new LatLng(latitude, longitude);
+        //map.addMarker(new MarkerOptions().position(atual).title("Localiza"));
 
         //habilita o botão para mover ir para localização do dispositivo
         map.setMyLocationEnabled(true);
 
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(atual, 14));
+
         //move o mapa para a localização atual
-//        map.moveCamera(CameraUpdateFactory.newLatLngZoom(cascavel, 14));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 14));
+        //map.moveCamera(CameraUpdateFactory.newLatLngZoom(cascavel, 14));
+        //map.moveCamera(CameraUpdateFactory.newLatLngZoom(atual, 14));
 
     }
 
